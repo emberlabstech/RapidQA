@@ -1,0 +1,23 @@
+{
+  "ollama": {
+    "base_url": "[[modules.ai.coding.base_url]]",
+    "generate_path": "[[modules.ai.coding.generate_path]]",
+    "model": "[[modules.ai.coding.model]]",
+    "timeout_seconds": [[modules.ai.coding.timeout_seconds]],
+    "keep_alive": "[[modules.ai.coding.keep_alive]]",
+    "temperature": [[modules.ai.coding.temperature]],
+    "num_ctx": [[modules.ai.coding.num_ctx]]
+  },
+  "files": {
+    "defaultInstruction": "config/instructions.txt",
+    "extensions": "go,txt,css,js,ts,html,htm,json,xml,yaml,yml,sql,md,sh"
+  },
+  "sendgrid": {
+    "api_key": "[[modules.email.sendgrid.pass]]",
+    "from_email": "ai@emberlabs.tech",
+    "from_name": "Git Review",
+    "to_email": "chris@emberlabs.tech",
+    "to_name": "Chris Sprucefield",
+    "subject": "Git commit review"
+  }
+}
