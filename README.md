@@ -1,5 +1,20 @@
 # Commit-review
-(C) 2026 - EmberLabs / Chris Sprucefield.
+Author: 2026 - EmberLabs / Chris Sprucefield.
+
+Licensed for public use under MIT License. 
+
+## Dependencies for building
+
+* Go 1.20 or later
+* Ollama (local instance)
+
+#### For email sending
+* Sendgrid API key
+
+#### For credentials used in the config.json
+* 1Password account for secrets
+* 1Password API key.
+* 1PassMapper https://github.com/emberlabstech/1PassMapper
 
 ## Arguments
 
@@ -35,6 +50,7 @@ It will analyze the files committed by the Git commit.
     "num_ctx": 262144
   },
   "files": {
+    "defaultInstruction": "config/instructions.txt",
     "extensions": "go,txt,css,js,ts,html,htm,json,xml,yaml,yml,sql,md,sh"
   },
   "sendgrid": {
@@ -46,6 +62,28 @@ It will analyze the files committed by the Git commit.
     "subject": "<email_subject>"
   }
 }
+```
+
+## Files
+
+```plain text
+.
+├── commit-review                   Compiled binary
+├── config
+│   ├── config.json                 Configuration file generated from the template.  
+│   ├── config-template.json        Configuration file template. 
+│   └── instructions.txt            Default instruction file for the review. 
+│    
+├── email.go                        The sendmail component for SendGrid. 
+├── go.mod
+├── go.sum
+├── main.go                         Main application. 
+├── Makefile                        Build file. 
+├── ollama.go                       Ollama Processor. 
+├── post-commit.sh                  Shell script to support git commits as a post commit event. 
+├── process.go                      Process the files and compile the report. 
+├── README.md                       Readme.
+└── support.go                      Support functions for the other parts of the application. 
 ```
 
 ## Makefile

@@ -1,7 +1,7 @@
 onePassVault 	?= CICD
 onePassItem 	?= Labs-general
 env				?= dev
-target			?= commit-review
+target			?= review
  
 all:
 	mkdir -p bin
@@ -23,6 +23,7 @@ setup:
 	go get -u "github.com/tidwall/sjson"
 
 clean: 
-	rm config/config.json
-	rm $(target) 
+	if [ -e config/config.json ] ; then rm config/config.json ; fi 
+	if [ -e $(target) ] ; then rm $(target) ; fi 
+ 
 	

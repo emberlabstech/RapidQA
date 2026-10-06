@@ -56,6 +56,9 @@ func loadConfig(filename string) (*Config, error) {
 
 // applyDefaults - Apply default values to the configuration.
 func (c *Config) applyDefaults() error {
+	if c == nil {
+		return fmt.Errorf("config is nil")
+	}
 	defaults := []struct {
 		path  string
 		value interface{}

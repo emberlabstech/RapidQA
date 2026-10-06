@@ -18,42 +18,39 @@ import (
 //       |_|  |_|     |_|
 
 // run - Process the files and generate a review report to be printed or sent by email.
-func run(files []string) error {
+func run(cfg *Config, files []string) error {
 	instructions := []byte(prompt)
+	if cfg == nil {
+		return fmt.Errorf("config is nil")
+	}
+
 	if len(files) == 0 {
 		return fmt.Errorf(
 			"no files specified\nusage: commit-review <file> [file ...]",
 		)
 	}
 
-	appRoot, err := applicationRoot()
-	if err != nil {
-		return err
-	}
-
 	// Get the default instructions, and override later if
-	instructionsPath := filepath.Join(appRoot, Cfg.String(`instructionsPath`))
-
 	if prompt == "" {
-		r, err := os.ReadFile(instructionsPath)
+		r, err := os.ReadFile(instructionFile)
 		if err != nil {
-			return fmt.Errorf("read instructions %s: %w", instructionsPath, err)
+			return fmt.Errorf("read instructions %s: %w", instructionFile, err)
 		}
 		instructions = r
 	}
 
 	extensions := parseExtensions(
-		Cfg.String("files.extensions"),
+		cfg.String("files.extensions"),
 	)
 
 	client := &http.Client{
-		Timeout: time.Duration(Cfg.Int("ollama.timeout_seconds")) * time.Second,
+		Timeout: time.Duration(cfg.Int("ollama.timeout_seconds")) * time.Second,
 	}
 
 	results := make([]ReviewResult, 0, len(files))
 
 	for _, filename := range files {
-		result, processed := reviewFile(client, Cfg, string(instructions), extensions, filename)
+		result, processed := reviewFile(client, cfg, string(instructions), extensions, filename)
 
 		if processed {
 			results = append(results, result)
@@ -73,7 +70,7 @@ func run(files []string) error {
 		return nil
 	}
 
-	if err := sendEmail(Cfg, report); err != nil {
+	if err := sendEmail(cfg, report); err != nil {
 		return err
 	}
 
