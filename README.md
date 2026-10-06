@@ -1,4 +1,4 @@
-# Commit-review
+# RapidQA
 Author: 2026 - EmberLabs / Chris Sprucefield.
 
 Licensed for public use under MIT License. 

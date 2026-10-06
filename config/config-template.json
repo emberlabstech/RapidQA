@@ -16,8 +16,8 @@
     "api_key": "[[modules.email.sendgrid.pass]]",
     "from_email": "ai@emberlabs.tech",
     "from_name": "Git Review",
-    "to_email": "chris@emberlabs.tech",
-    "to_name": "Chris Sprucefield",
+    "to_email": "<recipient_email>",
+    "to_name": "<recipient_name>",
     "subject": "Git commit review"
   }
 }

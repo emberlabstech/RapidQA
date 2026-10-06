@@ -1,7 +1,7 @@
 onePassVault 	?= CICD
 onePassItem 	?= Labs-general
 env				?= dev
-target			?= review
+target			?= rapidqa
  
 all:
 	mkdir -p bin
